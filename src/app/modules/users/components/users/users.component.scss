@@ -1,0 +1,14 @@
+.users {
+  display: flex;
+  justify-content: center;
+
+  &__table {
+    width: 90%;
+  }
+
+  &__img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50px
+  }
+}

@@ -1,0 +1,51 @@
+<div class="users">
+  <table mat-table [dataSource]="users" matSort
+         class="mat-elevation-z8 users__table">
+
+    <ng-container matColumnDef="avatar_url">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
+        Avatar
+      </th>
+      <td mat-cell *matCellDef="let user">
+        <img class="users__img" [src]="user.avatar_url" alt="User avatar"/>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="login">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
+        Login
+      </th>
+      <td mat-cell *matCellDef="let user">
+        {{user.login}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
+        ID
+      </th>
+      <td mat-cell *matCellDef="let user"> {{user.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by weight">
+        Type
+      </th>
+      <td mat-cell *matCellDef="let user"> {{user.type}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="git_url">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by weight">
+        Git
+      </th>
+      <td mat-cell *matCellDef="let user">
+        <a [href]="user.html_url" target="_blank">
+          <img [src]="'assets/icons/github-logo.png'" alt="Git hub logo"/>
+        </a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
