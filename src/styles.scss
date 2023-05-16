@@ -1,8 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
 
+@use '@angular/material/theming';
+@use '@angular/material' as mat;
+
+@include mat.core();
+
 $color-background-body: #0d1117;
 
 body {
   background: $color-background-body;
   color: white;
+}
+
+.mat-form-field {
+  height: 45px;
+  border-bottom: 1px solid white;
+}
+
+
+.mat-option {
+  background: white;
+  color: black;
+}
+
+.mat-radio-inner-circle {
+  background: white;
+}
+
+.mat-error {
+  display: flex !important;
+  color: #ee5353;
+  margin-top: 10px;
+
+  .mat-icon {
+    margin-top: 0.1em;
+    margin-right: 0.125em;
+  }
 }

@@ -1,3 +1,9 @@
+export interface SearchUserDTO {
+  items: UserDTO[],
+  total_count: number,
+  incomplete_results: boolean
+}
+
 export interface UserDTO {
   "login": string;
   "id": number,
