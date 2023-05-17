@@ -5,7 +5,77 @@
 
 @include mat.core();
 
+$actum-palette: (
+  50: #e2e2e3,
+  100: #b6b8b9,
+  200: #86888b,
+  300: #56585d,
+  400: #ffffff,
+  500: #ffffff,
+  600: #ffffff,
+  700: #ffffff,
+  800: #ffffff,
+  900: #ffffff,
+  A100: #4eb7ff,
+  A200: #1ba3ff,
+  A400: #0089e7,
+  A700: #007ace,
+  contrast: (
+    50: #030507,
+    100: #030507,
+    200: #030507,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #030507,
+    A200: #030507,
+    A400: #030507,
+    A700: #030507,
+  ),
+);
+
+$actum-primary: mat.define-palette($actum-palette);
+$actum-accent: mat.define-palette($actum-palette);
+
+$actum-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $actum-primary,
+      accent: $actum-accent,
+    ),
+  )
+);
+
+@include mat.all-component-themes($actum-theme);
+
 $color-background-body: #0d1117;
+
+$spacings: (0, 8, 16, 24, 32, 40, 48, 56, 64, 72);
+$sides: (top, bottom, left, right);
+
+@each $space in $spacings {
+  .m-#{$space} {
+    margin: #{$space}px !important;
+  }
+
+  .p-#{$space} {
+    padding: #{$space}px !important;
+  }
+
+  @each $side in $sides {
+    .m-#{str-slice($side, 0, 1)}-#{$space} {
+      margin-#{$side}: #{$space}px !important;
+    }
+
+    .p-#{str-slice($side, 0, 1)}-#{$space} {
+      padding-#{$side}: #{$space}px !important;
+    }
+  }
+}
 
 body {
   background: $color-background-body;
@@ -14,26 +84,51 @@ body {
 
 .mat-form-field {
   height: 45px;
-  border-bottom: 1px solid white;
 }
 
-
-.mat-option {
-  background: white;
-  color: black;
+.mat-paginator {
+  background: $color-background-body;
 }
 
-.mat-radio-inner-circle {
-  background: white;
+.mat-table {
+  background: $color-background-body;
+}
+
+.mat-paginator-navigation-next {
+  background-color: $color-background-body;
+  color: white;
+}
+
+.mat-paginator-navigation-previous {
+  background-color: $color-background-body;
+  color: white;
+}
+
+.mat-paginator-page-size-select {
+  height: 35px;
+}
+
+.mat-paginator-range-actions {
+  margin-top: 10px;
+}
+
+.mat-snack-bar-container {
+  background: red;
+
+  .mat-focus-indicator {
+    background: #a51010;
+    color: white;
+  }
 }
 
 .mat-error {
   display: flex !important;
   color: #ee5353;
-  margin-top: 10px;
+  opacity: 0.99;
+  flex-direction: row;
+  align-items: flex-start;
+}
 
-  .mat-icon {
-    margin-top: 0.1em;
-    margin-right: 0.125em;
-  }
+.text-align-center {
+  text-align: center !important;
 }

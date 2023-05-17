@@ -5,6 +5,10 @@
   flex-direction: column;
 
   &__form {
+    @media screen and (max-width: 840px) {
+      display: flex;
+      flex-direction: column;
+    }
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -18,12 +22,42 @@
   }
 
   &__img {
+    @media screen and (max-width: 480px) {
+      width: 32px;
+      height: 32px;
+      margin: 10px;
+    }
     width: 64px;
     height: 64px;
-    border-radius: 50px
+    border-radius: 50%;
   }
 
   .mat-radio-button ~ .mat-radio-button {
     margin-left: 16px;
+  }
+
+  .mat-row {
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      background: #707070;
+    }
+  }
+
+  &__no-users-template {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 350px;
+    font-size: 48px;
+
+    :nth-child(even) {
+      font-size: 12px;
+      text-decoration: underline;
+      margin: 32px;
+    }
   }
 }

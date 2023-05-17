@@ -1,82 +1,91 @@
 <div class="users">
-
   <form class="users__form" [formGroup]="searchUsersForm">
-    <span>Search users options</span>
-    <mat-form-field class="users__search-input">
-      <mat-label>Search user</mat-label>
-      <input formControlName="search" matInput placeholder="Search user" (input)="searchUsers()">
+    <label for="searchInput">Search users options:</label>
+    <mat-form-field class="users__search-input m-16">
+      <input
+        id="searchInput"
+        formControlName="search"
+        required
+        matInput
+        placeholder="Search user"
+        aria-label="Search user"
+      />
+      <mat-error>
+        <mat-icon>error_outline</mat-icon>
+        <span>Search is required</span>
+      </mat-error>
     </mat-form-field>
 
-    <span>Sorting by</span>
-    <mat-form-field>
-      <mat-select formControlName="sortBy" disableRipple (selectionChange)="searchUsers()">
+    <span>Sorting by:</span>
+    <mat-form-field class="m-16">
+      <mat-label>Sort by</mat-label>
+      <mat-select formControlName="sortBy" disableRipple aria-label="Sort by">
         <mat-option *ngFor="let sortBy of selectSortByOption" [value]="sortBy">{{ sortBy }}</mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-radio-group formControlName="sortDirection" aria-label="Select an option" (change)="searchUsers()">
+    <mat-radio-group formControlName="sortDirection" aria-label="Sort Direction">
       <mat-radio-button value="asc">Asc</mat-radio-button>
       <mat-radio-button value="desc">Desc</mat-radio-button>
     </mat-radio-group>
-
   </form>
 
   <mat-paginator
     [length]="totalCount"
     [pageSize]="30"
     [pageSizeOptions]="[5, 10, 30]"
-    (page)="changedPage($event)"
-    aria-label="Select page"
+    (page)="changePage($event)"
+    aria-label="Pagination"
   ></mat-paginator>
 
-  <table mat-table [dataSource]="users"
-         class="users__table">
-
-
+  <table *ngIf="isUsers; else noUsersTemplate" mat-table [dataSource]="users" class="users__table">
     <ng-container matColumnDef="avatar_url">
-      <th mat-header-cell *matHeaderCellDef>
-        Avatar
-      </th>
-      <td mat-cell *matCellDef="let user">
-        <img class="users__img" [src]="user.avatar_url" alt="User avatar"/>
+      <th class="text-align-center" mat-header-cell *matHeaderCellDef>Avatar</th>
+      <td class="text-align-center" mat-cell *matCellDef="let user">
+        <img class="users__img" [src]="user.avatar_url" alt="User avatar" aria-hidden="true" />
       </td>
     </ng-container>
 
     <ng-container matColumnDef="login">
-      <th mat-header-cell *matHeaderCellDef>
-        Login
-      </th>
-      <td mat-cell *matCellDef="let user">
-        {{user.login}}
-      </td>
+      <th mat-header-cell *matHeaderCellDef>Login</th>
+      <td mat-cell *matCellDef="let user">{{ user.login }}</td>
     </ng-container>
 
     <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef>
-        ID
-      </th>
-      <td mat-cell *matCellDef="let user"> {{user.id}} </td>
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let user">{{ user.id }}</td>
     </ng-container>
 
     <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef>
-        Type
-      </th>
-      <td mat-cell *matCellDef="let user"> {{user.type}} </td>
+      <th mat-header-cell *matHeaderCellDef>Type</th>
+      <td mat-cell *matCellDef="let user">{{ user.type }}</td>
     </ng-container>
 
     <ng-container matColumnDef="git_url">
-      <th mat-header-cell *matHeaderCellDef>
-        Git
-      </th>
-      <td mat-cell *matCellDef="let user">
-        <a [href]="user.html_url" target="_blank">
-          <img [src]="'assets/icons/github-logo.png'" alt="Git hub logo"/>
+      <th class="text-align-center" mat-header-cell *matHeaderCellDef>Git</th>
+      <td class="text-align-center" mat-cell *matCellDef="let user">
+        <a [href]="user.html_url" target="_blank" rel="noopener">
+          <img
+            class="users__img"
+            src="assets/icons/github-logo.png"
+            [matTooltip]="'Go to the GitHub profile'"
+            matTooltipPosition="right"
+            alt="GitHub logo"
+            aria-hidden="true"
+          />
         </a>
       </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row @fadeOut *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
+
+  <ng-template #noUsersTemplate>
+    <div class="users__no-users-template">
+      <div>Sorry, no users found.</div>
+      <span>Please check the input field</span>
+      <img src="assets/icons/github-logo.png" />
+    </div>
+  </ng-template>
 </div>
