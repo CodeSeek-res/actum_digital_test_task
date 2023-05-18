@@ -13,7 +13,7 @@ export class UsersService {
 
   // We know it isn't the best way to store token,
   // but this increases the rate limits and makes testing easier
-  private readonly GITHUB_ACCESS_TOKEN = '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';
+  private readonly GITHUB_ACCESS_TOKEN = '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';
 
   constructor(private readonly httpClient: HttpClient) {}
 
